@@ -49,3 +49,17 @@ func TestLevel(t *testing.T) {
 	// error: This is the only one that fails
 	assert.Equal(t, "", Level(8).String())
 }
+
+func TestNullLogger(t *testing.T) {
+	n := NewNullLogger()
+
+	n.Info("info")
+}
+
+func TestPrintLogger(t *testing.T) {
+	p := NewPrintLogger()
+
+	p.Emergency("emergency")
+	p.Alert("alert")
+	p.Critical("critical")
+}
