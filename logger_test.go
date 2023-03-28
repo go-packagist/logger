@@ -59,7 +59,23 @@ func TestNullLogger(t *testing.T) {
 func TestPrintLogger(t *testing.T) {
 	p := NewPrintLogger()
 
+	p.Emergencyf("emergency %s", "test")
+	p.Alertf("alert %s", "test")
+	p.Criticalf("critical %s", "test")
+	p.Errorf("error %s", "test")
+	p.Warningf("warning %s", "test")
+	p.Noticef("notice %s", "test")
+	p.Infof("info %s", "test")
+	p.Debugf("debug %s", "test")
+
 	p.Emergency("emergency")
 	p.Alert("alert")
 	p.Critical("critical")
+	p.Error("error")
+	p.Warning("warning")
+	p.Notice("notice")
+	p.Info("info")
+	p.Debug("debug")
+
+	p.Log(Emergency, "emergency")
 }
