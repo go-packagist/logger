@@ -1,5 +1,7 @@
 package logger
 
+import "strings"
+
 type Level int
 
 // see https://www.rfc-editor.org/rfc/rfc5424.html
@@ -49,4 +51,12 @@ func (l Level) String() string {
 	default:
 		return ""
 	}
+}
+
+func (l Level) UpperString() string {
+	return strings.ToUpper(l.String())
+}
+
+func (l Level) LowerString() string {
+	return strings.ToLower(l.String())
 }

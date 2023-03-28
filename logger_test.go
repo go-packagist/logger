@@ -48,6 +48,12 @@ func TestLevel(t *testing.T) {
 
 	// error: This is the only one that fails
 	assert.Equal(t, "", Level(8).String())
+
+	// upper string
+	assert.Equal(t, "EMERGENCY", Emergency.UpperString())
+
+	// lower string
+	assert.Equal(t, "emergency", Emergency.LowerString())
 }
 
 func TestNullLogger(t *testing.T) {
