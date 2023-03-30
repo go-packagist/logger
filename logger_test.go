@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -54,6 +55,39 @@ func TestLevel(t *testing.T) {
 
 	// lower string
 	assert.Equal(t, "emergency", Emergency.LowerString())
+}
+
+func TestLevel_Marshal(t *testing.T) {
+	type test struct {
+		Level Level `json:"level"`
+	}
+
+	t1 := test{Level: Emergency}
+	t2 := test{Level: Alert}
+	t3 := test{Level: Critical}
+	t4 := test{Level: Error}
+	t5 := test{Level: Warning}
+	t6 := test{Level: Notice}
+	t7 := test{Level: Info}
+	t8 := test{Level: Debug}
+
+	j1, _ := json.Marshal(t1)
+	j2, _ := json.Marshal(t2)
+	j3, _ := json.Marshal(t3)
+	j4, _ := json.Marshal(t4)
+	j5, _ := json.Marshal(t5)
+	j6, _ := json.Marshal(t6)
+	j7, _ := json.Marshal(t7)
+	j8, _ := json.Marshal(t8)
+
+	assert.Equal(t, `{"level":"emergency"}`, string(j1))
+	assert.Equal(t, `{"level":"alert"}`, string(j2))
+	assert.Equal(t, `{"level":"critical"}`, string(j3))
+	assert.Equal(t, `{"level":"error"}`, string(j4))
+	assert.Equal(t, `{"level":"warning"}`, string(j5))
+	assert.Equal(t, `{"level":"notice"}`, string(j6))
+	assert.Equal(t, `{"level":"info"}`, string(j7))
+	assert.Equal(t, `{"level":"debug"}`, string(j8))
 }
 
 func TestNullLogger(t *testing.T) {

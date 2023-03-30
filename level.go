@@ -1,6 +1,8 @@
 package logger
 
-import "strings"
+import (
+	"strings"
+)
 
 type Level int
 
@@ -59,4 +61,8 @@ func (l Level) UpperString() string {
 
 func (l Level) LowerString() string {
 	return strings.ToLower(l.String())
+}
+
+func (l Level) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + l.String() + `"`), nil
 }
