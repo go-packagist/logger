@@ -2,7 +2,6 @@ package logger
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -71,7 +70,6 @@ func TestLevel_Marshal(t *testing.T) {
 	t6 := test{Level: Notice}
 	t7 := test{Level: Info}
 	t8 := test{Level: Debug}
-	println(fmt.Sprintf("%+v", t1))
 
 	j1, _ := json.Marshal(t1)
 	j2, _ := json.Marshal(t2)
@@ -81,7 +79,6 @@ func TestLevel_Marshal(t *testing.T) {
 	j6, _ := json.Marshal(t6)
 	j7, _ := json.Marshal(t7)
 	j8, _ := json.Marshal(t8)
-	println(fmt.Sprintf("%+v", j1))
 
 	assert.Equal(t, `{"level":"emergency"}`, string(j1))
 	assert.Equal(t, `{"level":"alert"}`, string(j2))
