@@ -1,6 +1,8 @@
 package logger
 
 import (
+	"encoding/json"
+	"fmt"
 	"strings"
 )
 
@@ -26,6 +28,25 @@ const (
 	Debug
 )
 
+const (
+	// EmergencyString is the emergency log level string
+	EmergencyString = "emergency"
+	// AlertString is the alert log level string
+	AlertString = "alert"
+	// CriticalString is the critical log level string
+	CriticalString = "critical"
+	// ErrorString is the error log level string
+	ErrorString = "error"
+	// WarningString is the warning log level string
+	WarningString = "warning"
+	// NoticeString is the notice log level string
+	NoticeString = "notice"
+	// InfoString is the info log level string
+	InfoString = "info"
+	// DebugString is the debug log level string
+	DebugString = "debug"
+)
+
 // Int returns the integer representation of the log level
 func (l Level) Int() int {
 	return int(l)
@@ -35,21 +56,21 @@ func (l Level) Int() int {
 func (l Level) String() string {
 	switch l {
 	case Emergency:
-		return "emergency"
+		return EmergencyString
 	case Alert:
-		return "alert"
+		return AlertString
 	case Critical:
-		return "critical"
+		return CriticalString
 	case Error:
-		return "error"
+		return ErrorString
 	case Warning:
-		return "warning"
+		return WarningString
 	case Notice:
-		return "notice"
+		return NoticeString
 	case Info:
-		return "info"
+		return InfoString
 	case Debug:
-		return "debug"
+		return DebugString
 	default:
 		return ""
 	}
@@ -65,4 +86,35 @@ func (l Level) LowerString() string {
 
 func (l Level) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + l.String() + `"`), nil
+}
+
+func (l *Level) UnmarshalJSON(data []byte) error {
+	var s string
+	err := json.Unmarshal(data, &s)
+	if err != nil {
+		return err
+	}
+
+	switch strings.ToLower(s) {
+	case EmergencyString:
+		*l = Emergency
+	case AlertString:
+		*l = Alert
+	case CriticalString:
+		*l = Critical
+	case ErrorString:
+		*l = Error
+	case WarningString:
+		*l = Warning
+	case NoticeString:
+		*l = Notice
+	case InfoString:
+		*l = Info
+	case DebugString:
+		*l = Debug
+	default:
+		return fmt.Errorf("invalid log level: %s", s)
+	}
+
+	return nil
 }
